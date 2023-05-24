@@ -10,15 +10,12 @@ import (
 )
 
 const (
-	Theme string = "dark"
+	WordWrapLen int = 100
 )
 
-var (
-	errNotEnoughArgs = errors.New("not all arguments supplied")
-)
+var errNotEnoughArgs = errors.New("not all arguments supplied")
 
 func main() {
-
 	if len(os.Args) < 2 {
 		fmt.Println("error: not enough arguments, missing filepath")
 		return
@@ -37,7 +34,12 @@ func main() {
 		return
 	}
 
-	out, err := glamour.Render(string(content), Theme)
+	r, err := glamour.NewTermRenderer(glamour.WithAutoStyle(), glamour.WithWordWrap(WordWrapLen))
+	if err != nil {
+		fmt.Println("error: unable to create parser, %s", err.Error())
+	}
+
+	out, err := r.Render(string(content))
 	if err != nil {
 		fmt.Println("error: parsing the file, %s", err.Error())
 		return
