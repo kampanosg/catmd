@@ -1,24 +1,44 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"io"
+	"os"
 
 	"github.com/charmbracelet/glamour"
 )
 
+const (
+	Theme string = "dark"
+)
+
+var (
+	errNotEnoughArgs = errors.New("not all arguments supplied")
+)
+
 func main() {
-	in := `# Hello World
 
-This is a simple example of Markdown rendering with Glamour!
-Check out the [other examples](https://github.com/charmbracelet/glamour/tree/master/examples) too.
+	if len(os.Args) < 2 {
+		panic(errNotEnoughArgs)
+	}
 
-Bye!
-`
-
-	out, err := glamour.Render(in, "dark")
+	file, err := os.Open(os.Args[1])
 	if err != nil {
-		fmt.Errorf("error, %s", err.Error())
+		panic(err)
+	}
+	defer file.Close()
+
+	content, err := io.ReadAll(file)
+	if err != nil {
+		panic(err)
+	}
+
+	out, err := glamour.Render(string(content), Theme)
+	if err != nil {
+		fmt.Errorf("error parsing the file, %w", err)
 		return
 	}
-	fmt.Print(out)
+
+	fmt.Println(out)
 }
