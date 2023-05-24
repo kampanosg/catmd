@@ -23,25 +23,25 @@ func main() {
 
 	file, err := os.Open(os.Args[1])
 	if err != nil {
-		fmt.Printf("error: unable to open file %s", os.Args[1])
+		fmt.Printf("error: unable to open file %s\n", os.Args[1])
 		return
 	}
 	defer file.Close()
 
 	content, err := io.ReadAll(file)
 	if err != nil {
-		fmt.Println("error: unable to read file, %s", err.Error())
+		fmt.Printf("error: unable to read file, %s\n", err.Error())
 		return
 	}
 
 	r, err := glamour.NewTermRenderer(glamour.WithAutoStyle(), glamour.WithWordWrap(WordWrapLen))
 	if err != nil {
-		fmt.Println("error: unable to create parser, %s", err.Error())
+		fmt.Printf("error: unable to create parser, %s\n", err.Error())
 	}
 
 	out, err := r.Render(string(content))
 	if err != nil {
-		fmt.Println("error: parsing the file, %s", err.Error())
+		fmt.Printf("error: parsing the file, %s\n", err.Error())
 		return
 	}
 
