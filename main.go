@@ -20,23 +20,26 @@ var (
 func main() {
 
 	if len(os.Args) < 2 {
-		panic(errNotEnoughArgs)
+		fmt.Println("error: not enough arguments, missing filepath")
+		return
 	}
 
 	file, err := os.Open(os.Args[1])
 	if err != nil {
-		panic(err)
+		fmt.Printf("error: unable to open file %s", os.Args[1])
+		return
 	}
 	defer file.Close()
 
 	content, err := io.ReadAll(file)
 	if err != nil {
-		panic(err)
+		fmt.Println("error: unable to read file, %s", err.Error())
+		return
 	}
 
 	out, err := glamour.Render(string(content), Theme)
 	if err != nil {
-		fmt.Errorf("error parsing the file, %w", err)
+		fmt.Println("error: parsing the file, %s", err.Error())
 		return
 	}
 
