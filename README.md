@@ -1,5 +1,5 @@
 # go-glamour-wrapper
-A very simple CLI wrapper for the [charmbracelet/glamour](https://github.com/charmbracelet/glamour).
+A very simple CLI wrapper for the [charmbracelet/glamour](https://github.com/charmbracelet/glamour). It makes Markdown files look awesome without having to leave the terminal 💅
 
 ## Installation
 1. Clone the project
