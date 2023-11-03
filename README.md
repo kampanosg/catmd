@@ -1,4 +1,4 @@
-# go-glamour-wrapper
+# catmd
 A very simple CLI wrapper for the [charmbracelet/glamour](https://github.com/charmbracelet/glamour). It makes Markdown files look awesome without having to leave the terminal 💅
 
 ## Installation
